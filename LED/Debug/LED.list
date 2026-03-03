@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   000000da  00000000  00000000  00001fa9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000030ee  00000000  00000000  00002083  2**0
+ 18 .debug_str    000030f2  00000000  00000000  00002083  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00005171  2**0
+ 19 .comment      00000043  00000000  00000000  00005175  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000054  00000000  00000000  000051b4  2**2
+ 20 .debug_frame  00000054  00000000  00000000  000051b8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005a  00000000  00000000  00005208  2**0
+ 21 .debug_line_str 0000005a  00000000  00000000  0000520c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -79,41 +79,44 @@ Disassembly of section .text:
  80001d0:	080002b4 	.word	0x080002b4
 
 080001d4 <main>:
-#define PIN5 (1U<<5)
-// 16: Alias for PIN5 representing LED pin
-#define LED_PIN PIN5
-// 17: Start of main function
-int main(void)
-{// 18: Enable clock access to GPIOA
+
+//16. Alias for PIN5 representing LED pin
+#define LED_PIN PIN6
+
+//Start of main function
+int main(void){
  80001d4:	b480      	push	{r7}
  80001d6:	af00      	add	r7, sp, #0
+	//Enable clock access to GPIOA
 	RCC_AHB1EN_R |= GPIOAEN;
  80001d8:	4b0c      	ldr	r3, [pc, #48]	@ (800020c <main+0x38>)
  80001da:	681b      	ldr	r3, [r3, #0]
  80001dc:	4a0b      	ldr	r2, [pc, #44]	@ (800020c <main+0x38>)
  80001de:	f043 0301 	orr.w	r3, r3, #1
  80001e2:	6013      	str	r3, [r2, #0]
-	GPIOA_MODE_R |= (1U<<10); // 19: Set bit 10 to 1
+
+
+	GPIOA_MODE_R |= (1U<<12); // 19: Set bit 10 to 1
  80001e4:	4b0a      	ldr	r3, [pc, #40]	@ (8000210 <main+0x3c>)
  80001e6:	681b      	ldr	r3, [r3, #0]
  80001e8:	4a09      	ldr	r2, [pc, #36]	@ (8000210 <main+0x3c>)
- 80001ea:	f443 6380 	orr.w	r3, r3, #1024	@ 0x400
+ 80001ea:	f443 5380 	orr.w	r3, r3, #4096	@ 0x1000
  80001ee:	6013      	str	r3, [r2, #0]
-	GPIOA_MODE_R &= ~(1U<<11); // 20: Set bit 11 to 0
+	GPIOA_MODE_R &= ~(1U<<13); // 20: Set bit 11 to 0
  80001f0:	4b07      	ldr	r3, [pc, #28]	@ (8000210 <main+0x3c>)
  80001f2:	681b      	ldr	r3, [r3, #0]
  80001f4:	4a06      	ldr	r2, [pc, #24]	@ (8000210 <main+0x3c>)
- 80001f6:	f423 6300 	bic.w	r3, r3, #2048	@ 0x800
+ 80001f6:	f423 5300 	bic.w	r3, r3, #8192	@ 0x2000
  80001fa:	6013      	str	r3, [r2, #0]
 	// 21: Start of infinite loop
-	while(1)
-	{
-	// 22: Set PA5(LED_PIN) high
-	GPIOA_OD_R |= LED_PIN;
+
+	while(1){
+		//Set PA5(LED_PIN) high
+		GPIOA_OD_R |= LED_PIN;
  80001fc:	4b05      	ldr	r3, [pc, #20]	@ (8000214 <main+0x40>)
  80001fe:	681b      	ldr	r3, [r3, #0]
  8000200:	4a04      	ldr	r2, [pc, #16]	@ (8000214 <main+0x40>)
- 8000202:	f043 0320 	orr.w	r3, r3, #32
+ 8000202:	f043 0340 	orr.w	r3, r3, #64	@ 0x40
  8000206:	6013      	str	r3, [r2, #0]
  8000208:	e7f8      	b.n	80001fc <main+0x28>
  800020a:	bf00      	nop

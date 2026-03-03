@@ -780,10 +780,10 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .debug_line    0x00000000       0x5f ./Src/main.o
  .debug_line    0x0000005f       0x7b ./Startup/startup_stm32f401retx.o
 
-.debug_str      0x00000000     0x30ee
- .debug_str     0x00000000     0x30ee ./Src/main.o
-                               0x30af (size before relaxing)
- .debug_str     0x000030ee       0x76 ./Startup/startup_stm32f401retx.o
+.debug_str      0x00000000     0x30f2
+ .debug_str     0x00000000     0x30f2 ./Src/main.o
+                               0x30b3 (size before relaxing)
+ .debug_str     0x000030f2       0x76 ./Startup/startup_stm32f401retx.o
 
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 ./Src/main.o
