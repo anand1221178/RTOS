@@ -5,12 +5,12 @@ ENTRY(Reset_Handler) /*This is the entry point of the firmware - first piece of 
 MEMORY /*We specify 2 memory regions our flash and sram*/
 {
     FLASH(rx):ORIGIN =0x08000000,LENGTH =512K
-    SRAM(rwx):ORIGIN =0x20000000,LENGTH =128K
+    SRAM(rwx):ORIGIN =0x20000000,LENGTH =96K
 }
 
 /* Symbol creation - estack -> we set this to the end of the SRAM memory region - We use this symbol to initalise the stack pointer */
 /* We set it at the end since the stack grows downwards */
-_estack = ORIGIN(SRAM)+LENGTH(SRAM)
+_estack = ORIGIN(SRAM)+LENGTH(SRAM);
 
 /*Specifying heap and stack sizes*/
 /* Importnt for dynmic mem alloc  */

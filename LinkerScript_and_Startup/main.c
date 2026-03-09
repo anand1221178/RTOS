@@ -59,7 +59,7 @@ int main(void){
 	while(1){
 		//Set PA5(LED_PIN) high
 		GPIOA_OD_R ^= LED_PIN;
-		for(int i = 0;  i <1000000; i++){}
+		for(volatile int i = 0;  i <1000000; i++){}
 
 	}
 }

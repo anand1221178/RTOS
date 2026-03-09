@@ -91,7 +91,6 @@ void SPI5_IRQHandler              	(void) __attribute__ ((weak, alias("Default_H
 /* Vector Table */
 
 uint32_t vector_tbl[] __attribute__((section(".isr_vector_tbl")))={
-	
 	(uint32_t)&_estack, //set estack symbol as first element of the vector table to define initial top stack in memory -> in arm cortex the first word of the vec tbl must be the inital value of the MSP (main stack ptr) -> on reset the processor loads this value into the MSP reg to set up the stack
 	(uint32_t)&Reset_Handler,
 	(uint32_t)&NMI_Handler,
