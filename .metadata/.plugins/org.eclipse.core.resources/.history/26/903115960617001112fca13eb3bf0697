@@ -76,49 +76,26 @@ int main(void){
   GPIOC_MODER  &=~(1U<<27);
   GPIOC_MODER &=~(1U <<26);
 
-//  while(1){
-//    //USer push button is a active low circuit!:
-//      //so if we are actually not pressing the button it is pushing 3.3 volts into pin 13 - IDR bit will read 1
-//      // When we press the button the volts are drained into the groud, so pin 13 will get no power so it will read 0
-//    // Read the IDR. Isolate bit 13. Is the result equal to 0?
-//    //Since we have set GPIOC to IDR, if it feels 3.3volts it will flip bit 13 to 1
-//    //If it feels 0 it will ground the power and force bit 13 to 0
-//
-//    if ((GPIOC_IDR & USER_BUTTON) == 0) { //
-//
-//        // The button is PRESSED! The pin is grounded.
-//        // Tell the ODR to supply voltage to the LED.
-//        GPIOA_ODR |= LED_PIN; //We are writing 1 to bit 6 -> ODR (OUTPUT DATA REG!)
-//
-//    } else {
-//
-//        // The button is UNPRESSED! The pin is seeing 3.3V.
-//        // Tell the ODR to shut off voltage to the LED.
-//        GPIOA_ODR &= ~LED_PIN;  //We are clearing the bit (setting to 0 since we dont want to supply with voltage)
-//
-//    }
- // }
-
   while(1){
-      // If the button is PRESSED (Active Low)
-      if ((GPIOC_IDR & USER_BUTTON) == 0) {
+    //USer push button is a active low circuit!:
+      //so if we are actually not pressing the button it is pushing 3.3 volts into pin 13 - IDR bit will read 1
+      // When we press the button the volts are drained into the groud, so pin 13 will get no power so it will read 0
+    // Read the IDR. Isolate bit 13. Is the result equal to 0?
+    //Since we have set GPIOC to IDR, if it feels 3.3volts it will flip bit 13 to 1
+    //If it feels 0 it will ground the power and force bit 13 to 0
 
-          // 1. Push the drum UP
-          GPIOA_ODR |= LED_PIN;
-
-          // 2. Wait a fraction of a millisecond
-          // (The 'volatile' stops the compiler from deleting this useless math)
-          for (volatile int i = 0; i < 5000; i++);
-
-          // 3. Let the drum fall DOWN
-          GPIOA_ODR &= ~LED_PIN;
-
-          // 4. Wait again before hitting it
-          for (volatile int i = 0; i < 5000; i++);
-
-      } else {
-          // Button is UNPRESSED. Ensure the buzzer is completely off.
-          GPIOA_ODR &= ~LED_PIN;
-      }
+    if ((GPIOC_IDR & USER_BUTTON) == 0) { //
+        
+        // The button is PRESSED! The pin is grounded.
+        // Tell the ODR to supply voltage to the LED.
+        GPIOA_ODR |= LED_PIN; //We are writing 1 to bit 6 -> ODR (OUTPUT DATA REG!)
+        
+    } else {
+        
+        // The button is UNPRESSED! The pin is seeing 3.3V.
+        // Tell the ODR to shut off voltage to the LED.
+        GPIOA_ODR &= ~LED_PIN;  //We are clearing the bit (setting to 0 since we dont want to supply with voltage)
+        
+    }
   }
 }
