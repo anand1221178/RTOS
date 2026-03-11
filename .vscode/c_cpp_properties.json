@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/anand/stm32_dev/CMSIS/Include",
+                "/Users/anand/stm32_dev/CMSIS/Device/ST/STM32F4xx/Include"
+            ],
+            "defines": [
+                "STM32F401xE"
+            ],
+            "compilerPath": "/opt/homebrew/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "macos-gcc-arm"
+        }
+    ],
+    "version": 4
+}
