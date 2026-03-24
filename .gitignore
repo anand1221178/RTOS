@@ -1,1 +1,5 @@
-.claude/
+*.o
+*.elf
+*.map
+.DS_Store
+.metadata/
