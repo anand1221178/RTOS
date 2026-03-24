@@ -10,7 +10,7 @@ INCLUDES = -IInc \
 all: all.elf
 
 # Rule for main.o - Depends on Src AND Inc
-main.o: Src/main.c Inc/gpio.h Inc/systick.h Inc/tim.h
+main.o: Src/main.c Inc/gpio.h Inc/uart.h Inc/spi.h
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
 # Rule for gpio.o
@@ -33,14 +33,18 @@ uart.o: Src/uart.c Inc/uart.h
 adc.o: Src/adc.c Inc/adc.h
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
+# Rule for spi.o
+spi.o: Src/spi.c Inc/spi.h
+	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
+
 # Rule for startup.o
 stm32f411_startup.o: stm32f411_startup.c
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
 # Linking everything together
 # We explicitly list the objects so 'make' knows to link when any .o changes
-all.elf: main.o gpio.o systick.o tim.o uart.o adc.o stm32f411_startup.o
-	$(CC) -nostartfiles -T stm32_ls.ld main.o gpio.o systick.o tim.o uart.o adc.o stm32f411_startup.o -o all.elf --specs=nano.specs --specs=nosys.specs -Wl,-Map=all.map 
+all.elf: main.o gpio.o systick.o tim.o uart.o adc.o spi.o stm32f411_startup.o
+	$(CC) -nostartfiles -T stm32_ls.ld main.o gpio.o systick.o tim.o uart.o adc.o spi.o stm32f411_startup.o -o all.elf --specs=nano.specs --specs=nosys.specs -Wl,-Map=all.map
 flash:
 	arm-none-eabi-gdb -batch \
 	-ex "target remote localhost:3333" \

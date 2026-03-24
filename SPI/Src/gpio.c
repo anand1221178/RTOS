@@ -1,11 +1,11 @@
 #include "gpio.h"
 
-#define GPIOAEN (1U<<0) /* Used to enable the clock for gpioa -> by writing to AHB1ENR reg*/
-#define GPIOCEN (1U<<2) /*Enable vlock access to GPIOC*/
+#define GPIOAEN (1U<<0) /*Enable clock access to GPIOA*/
+#define GPIOCEN (1U<<2) /*Enable clock access to GPIOC*/
 #define BTN_PIN (1U<<13) /*PC13 btn*/
-#define LED_BS6 (1U<<6) /*Bit set opertion for pin 5 -> we BSSR PA5 to high -> turns on LED*/
-#define LED_BR6 (1U<<22) /*Bit reset 5 -> set BSSR to low for pin 5 -> turns it off*/
-#define LED_PIN (1U<<6)
+#define LED_BS8 (1U<<8) /*Bit set for PA8*/
+#define LED_BR8 (1U<<24) /*Bit reset for PA8*/
+#define LED_PIN (1U<<8) /*PA8*/
 
 void led_init(void)
 {
@@ -13,20 +13,20 @@ void led_init(void)
     RCC->AHB1ENR |= GPIOAEN;
 
     /*Set PA5 mode to output mode*/
-    GPIOA->MODER |=(1U<<12);
-    GPIOA->MODER &=~(1U<<13);
+    GPIOA->MODER |=(1U<<16);
+    GPIOA->MODER &=~(1U<<17);
 }
 
 void led_on(void)
 {
     /*Set PA6 high*/
-    GPIOA->BSRR =LED_BS6;
+    GPIOA->BSRR =LED_BS8;
 }
 
 void led_off(void)
 {
     /*Set PA6 high*/
-    GPIOA->BSRR =LED_BR6;
+    GPIOA->BSRR =LED_BR8;
 }
 
 void button_init(void){
